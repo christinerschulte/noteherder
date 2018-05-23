@@ -9,18 +9,7 @@ class Main extends Component{
         super()
         this.state = {
             currentNote: this.blankNote(),
-            notes: [
-                {
-                  id: 1,
-                  title: 'JS thoughts',
-                  body: 'I just <3 JS so much',
-                },
-                {
-                  id: 2,
-                  title: 'Breakfast',
-                  body: 'Never wake up for it',
-                },
-              ],
+            notes: [],
         }
     }
 
@@ -43,10 +32,16 @@ class Main extends Component{
     saveNote = (note) =>{
         const notes = [...this.state.notes]
 
+        if(note.id){
         const i = notes.findIndex(currentNote => currentNote.id === note.id)
         notes[i] = note
-
+        } else{
+            note.id = Date.now()
+            notes.push(note)
+            
+        }
         this.setState({ notes, currentNote: note })
+    
     }
     
     render(){
