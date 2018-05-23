@@ -17,7 +17,11 @@ const Sidebar = ()=>{
           </a>
           <div className="SignOut">
             <button>
-              <i className="fa fa-sign-out"></i>
+              <i 
+                className="fas fa-sign-out-alt"
+                title = 'Sign Out'
+              >
+              </i>
             </button>
           </div>
         </nav>
