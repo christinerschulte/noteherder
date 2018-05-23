@@ -89,3 +89,9 @@
     background: none;
     border: none;
   }
+  .NoteList ul#notes li .note {
+    display: block;
+    height: 100px;
+    padding: 1em;
+    text-decoration: none;
+  }
