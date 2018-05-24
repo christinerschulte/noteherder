@@ -43,6 +43,22 @@ class Main extends Component{
         this.setState({ notes, currentNote: note })
     
     }
+
+    deleteNote = (note) =>{
+        const notes = [...this.state.notes]
+
+        if(note.id){
+        const i = notes.findIndex(currentNote => currentNote.id === note.id)
+        notes.splice(i, 1)
+        
+        this.setState({ notes, currentNote: this.blankNote() })
+        }
+
+
+        
+        
+
+    }
     
     render(){
     return(
@@ -58,6 +74,7 @@ class Main extends Component{
             <NoteForm 
                 currentNote={this.state.currentNote}
                 saveNote={this.saveNote}
+                deleteNote={this.deleteNote}
             />
         </div>
     )
