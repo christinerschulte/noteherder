@@ -44,20 +44,16 @@ class Main extends Component{
     
     }
 
-    deleteNote = (note) =>{
+    deleteNote = () =>{
         const notes = [...this.state.notes]
-
-        if(note.id){
-        const i = notes.findIndex(currentNote => currentNote.id === note.id)
+        const i = notes.findIndex(note => note.id === this.state.currentNote.id)
+       
+       if(i>-1){
         notes.splice(i, 1)
-        
-        this.setState({ notes, currentNote: this.blankNote() })
-        }
+        this.setState({ notes })
+       }
 
-
-        
-        
-
+       this.resetCurrentNote()      
     }
     
     render(){

@@ -8,13 +8,6 @@ const NoteForm = ({currentNote, saveNote, deleteNote}) =>{
     note[ev.target.name] = ev.target.value
     saveNote(note)
   }
-  
-    const handleDelete = (ev)=>{
-      const note = {...currentNote}
-      note[ev.target.name] = ev.target.value
-      deleteNote(note)
-    }
-  
 
   
 
@@ -23,7 +16,7 @@ const NoteForm = ({currentNote, saveNote, deleteNote}) =>{
         <div className="form-actions">
           <button 
             type="button"
-            onClick = {handleDelete} 
+            onClick = {deleteNote} 
           >
             <i 
               className="far fa-trash-alt"
