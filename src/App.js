@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 import './App.css'
 import { auth } from './base'
@@ -10,11 +10,15 @@ class App extends Component {
     uid: null,
   }
 
-  componentWillMount(){
+  componentWillMount() {
+    const uid = localStorage.getItem('uid')
+    if (uid) {
+      this.setState({ uid })
+    }
     auth.onAuthStateChanged(
-      (user) =>{
-        if(user){
-        this.handleAuth(user)
+      (user) => {
+        if (user) {
+          this.handleAuth(user)
         } else {
           this.handleUnauth()
         }
@@ -22,32 +26,36 @@ class App extends Component {
     )
   }
 
-  handleAuth = (user)=>{
-    this.setState({uid: user.uid})
+  handleAuth = (user) => {
+    this.setState({ uid: user.uid })
+    localStorage.setItem('uid', user.uid)
   }
 
-  handleUnauth = ()=>{
+  handleUnauth = () => {
     this.setState({ uid: null })
+    localStorage.removeItem('uid')
   }
 
-  signOut = () =>{
+  signOut = () => {
     auth.signOut()
   }
 
-  signedIn=()=>{
+  signedIn = () => {
     return this.state.uid
   }
+
   render() {
     return (
       <div className="App">
         {
           this.signedIn()
-          ? <Main signOut={this.signOut} uid={this.state.uid} />
-          : <SignIn />
+            ? <Main signOut={this.signOut} uid={this.state.uid} />
+            : <SignIn />
         }
+
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
