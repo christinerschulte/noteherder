@@ -10,16 +10,24 @@ class NoteForm extends Component {
     }
   }
 
-  componentWillReceiveProps = (newProps) => {
+  componentDidUpdate = () => {
     // Get the ID from the URL
-    const newId = newProps.match.params.id || ''
+    const newId = this.props.match.params.id || ''
 
-    // Find the note with that ID
-    const i = newProps.notes.findIndex(currentNote => currentNote.id.toString() === newId.toString())
-    const note = newProps.notes[i] || this.blankNote()
+    // Get the previous ID from state
+    const oldId = this.state.note.id || ''
 
-    // Update state with that note
-    this.setState({ note })
+    // Continue only if they're different
+    if (newId !== oldId.toString()) {
+      // Find the note with the new ID
+      const i = this.props.notes.findIndex(currentNote => currentNote.id.toString() === newId.toString())
+      const note = this.props.notes[i] || this.blankNote()
+
+      // Update state with that note
+      if (note.id !== this.state.note.id) {
+        this.setState({ note })
+      }
+    }
   }
 
   blankNote = () => {
@@ -27,14 +35,12 @@ class NoteForm extends Component {
       id: null,
       title: '',
       body: '',
-      updatedAt: null,
     }
   }
 
   handleChanges = (ev) => {
     const note = {...this.state.note}
     note[ev.target.name] = ev.target.value
-    note.updatedAt = Date.now()
     this.props.saveNote(note)
     this.setState({ note })
   }
