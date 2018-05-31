@@ -27,12 +27,14 @@ class NoteForm extends Component {
       id: null,
       title: '',
       body: '',
+      updatedAt: null,
     }
   }
 
   handleChanges = (ev) => {
     const note = {...this.state.note}
     note[ev.target.name] = ev.target.value
+    note.updatedAt = Date.now()
     this.props.saveNote(note)
     this.setState({ note })
   }
